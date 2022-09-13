@@ -4,7 +4,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
   describe "获取标签" do
     it "未登录获取标签" do
       post '/api/v1/tags'
-      expect(response).to have_http_status(40)
+      expect(response).to have_http_status(401)
     end
     it "登录后获取标签" do
       user = User.create email: '1@qq.com'
