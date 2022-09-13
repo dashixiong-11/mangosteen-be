@@ -14,4 +14,15 @@ class Api::V1::TagsController < ApplicationController
     return head :forbidden unless tag.user_id == request.env['current_user_id']
     render json: {resource: tag}
   end
+  def create
+    current_user = User.find request.env['current_user_id']
+    return render status: 401 if current_user.nil?  
+
+    tag = Tag.new name: params[:name], sign: params[:sign], user_id: current_user.id
+    if tag.save
+      render json: {resource: tag}, status: :ok
+    else
+      render json: {errors: tag.errors}, status: :unprocessable_entity
+    end
+  end
 end
