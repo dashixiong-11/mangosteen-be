@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>验证码 API</title>
+    <title>标签 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -106,14 +106,15 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>验证码 API</h1>
+      <h1>标签 API</h1>
 
       <div class="article">
-        <h2>请求发送验证码</h2>
-        <h3>POST /api/v1/validation_codes</h3>
+        <h2>获取标签</h2>
+        <h3>GET /api/v1/tags/:id</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
+
+          <h3>Response Fields</h3>
+          <table class="response-fields table table-striped table-bordered table-condensed">
             <thead>
               <tr>
                 <th>Name</th>
@@ -123,30 +124,60 @@ table th, table td {
             <tbody>
               <tr>
                 <td>
-                    <span class="name">email</span>
+                    <span class="name">resource[id]</span>
                 </td>
                 <td>
-                  <span class="description">Email</span>
+                  <span class="description">ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[name]</span>
+                </td>
+                <td>
+                  <span class="description">名称</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[sign]</span>
+                </td>
+                <td>
+                  <span class="description">符号</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[user_id]</span>
+                </td>
+                <td>
+                  <span class="description">用户ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[deleted_at]</span>
+                </td>
+                <td>
+                  <span class="description">删除时间</span>
                 </td>
               </tr>
             </tbody>
           </table>
 
-
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Accept: application/json
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3OSwiZXhwIjoxNjYzMDkwOTAzfQ.UKN_wm8jEKUjY4yaCO80IP6_f3BwN5ClPzvWaDNJ4nU
+Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /api/v1/validation_codes</pre>
+          <pre class="request route highlight">GET /api/v1/tags/135</pre>
 
 
-            <h4>Body</h4>
-            <pre class="request body">{"email":"1@qq.com"}</pre>
 
 
             <h3>Response</h3>
@@ -157,17 +188,27 @@ X-Content-Type-Options: nosniff
 X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
-Content-Type: text/plain; charset=utf-8
+Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;36a9e7f1c95b82ffb99743e0c5c4ce95&quot;
+ETag: W/&quot;00f8893d31a02449ae0ebaf97f71e47f&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: b5fc4811-ea91-4145-be2c-a6fc2263dc14
-X-Runtime: 0.045461
-Content-Length: 1</pre>
+X-Request-Id: 2183ec91-102e-46bc-b158-aa26d7d38286
+X-Runtime: 0.006918
+Content-Length: 156</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
-              <pre class="response body"> </pre>
+              <pre class="response body">{
+  &quot;resource&quot;: {
+    &quot;id&quot;: 135,
+    &quot;user_id&quot;: 79,
+    &quot;name&quot;: &quot;x&quot;,
+    &quot;sign&quot;: &quot;x&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-09-13T15:41:43.756Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-09-13T15:41:43.756Z&quot;
+  }
+}</pre>
       </div>
     </div>
   </body>

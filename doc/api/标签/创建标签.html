@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>会话 API</title>
+    <title>标签 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -106,11 +106,11 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>会话 API</h1>
+      <h1>标签 API</h1>
 
       <div class="article">
-        <h2>登录</h2>
-        <h3>POST /api/v1/session</h3>
+        <h2>创建标签</h2>
+        <h3>POST /api/v1/tags</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -123,18 +123,18 @@ table th, table td {
             <tbody>
               <tr>
                 <td class="required">
-                    <span class="name">email</span>
+                    <span class="name">name</span>
                 </td>
                 <td>
-                  <span class="description">邮箱</span>
+                  <span class="description">名称</span>
                 </td>
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">code</span>
+                    <span class="name">sign</span>
                 </td>
                 <td>
-                  <span class="description">验证码</span>
+                  <span class="description">符号</span>
                 </td>
               </tr>
             </tbody>
@@ -151,10 +151,42 @@ table th, table td {
             <tbody>
               <tr>
                 <td>
-                    <span class="name">jwt</span>
+                    <span class="name">resource[id]</span>
                 </td>
                 <td>
-                  <span class="description">用于验证用户身份的 token</span>
+                  <span class="description">ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[name]</span>
+                </td>
+                <td>
+                  <span class="description">名称</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[sign]</span>
+                </td>
+                <td>
+                  <span class="description">符号</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[user_id]</span>
+                </td>
+                <td>
+                  <span class="description">用户ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[deleted_at]</span>
+                </td>
+                <td>
+                  <span class="description">删除时间</span>
                 </td>
               </tr>
             </tbody>
@@ -163,17 +195,18 @@ table th, table td {
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Accept: application/json
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4MCwiZXhwIjoxNjYzMDkwOTAzfQ.xdLKkF7lm5034l5Ds4fRF1MQgiS7jw771Bpm_0P1z1o
+Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /api/v1/session</pre>
+          <pre class="request route highlight">POST /api/v1/tags</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"email":"1@qq.com","code":"123456"}</pre>
+            <pre class="request body">{"name":"x","sign":"x"}</pre>
 
 
             <h3>Response</h3>
@@ -186,16 +219,24 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;c5c420048d0886b959a75304cb85ca47&quot;
+ETag: W/&quot;6f1c0319e762729f6ad127760f77561b&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f759b1a6-05a1-4226-9215-84726c03061c
-X-Runtime: 0.016905
-Content-Length: 117</pre>
+X-Request-Id: 15b0b905-9001-4344-ada8-da6f6d894c35
+X-Runtime: 0.071404
+Content-Length: 156</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;jwt&quot;: &quot;eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3NywiZXhwIjoxNjYzMDkwOTAzfQ.DPmmV27vXN7vE9dJGBF13dpMwuo74-fQ5kGB5WP7t2s&quot;
+  &quot;resource&quot;: {
+    &quot;id&quot;: 136,
+    &quot;user_id&quot;: 80,
+    &quot;name&quot;: &quot;x&quot;,
+    &quot;sign&quot;: &quot;x&quot;,
+    &quot;deleted_at&quot;: null,
+    &quot;created_at&quot;: &quot;2022-09-13T15:41:43.846Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-09-13T15:41:43.846Z&quot;
+  }
 }</pre>
       </div>
     </div>

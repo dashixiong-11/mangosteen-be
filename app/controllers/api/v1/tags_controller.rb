@@ -25,4 +25,23 @@ class Api::V1::TagsController < ApplicationController
       render json: {errors: tag.errors}, status: :unprocessable_entity
     end
   end
+  def update
+    tag = Tag.find params[:id]
+    tag.update params.permit(:name, :sign)
+    if tag.errors.empty?
+      render json: {resource: tag}
+    else
+      render json: {errors: tag.errors}, status: :unprocessable_entity
+    end
+  end
+  def destroy
+    tag = Tag.find params[:id]
+    return head :forbidden unless tag.user_id == request.env['current_user_id']
+    tag.deleted_at = Time.now
+    if tag.save
+      head 200
+    else
+      render json: {errors: tag.errors}, status: :unprocessable_entity
+    end
+  end
 end
