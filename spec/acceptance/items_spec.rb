@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'rspec_api_documentation/dsl'
 
 resource "账目" do
+  let(:current_user) { User.create email: '1@qq.com' }
+  let(:auth) { "Bearer #{current_user.generate_jwt}" }
   get "/api/v1/items" do
     authentication :basic, :auth
     parameter :page, '页码'
@@ -11,12 +13,14 @@ resource "账目" do
       response_field :id, 'ID'
       response_field :amount, "金额（单位：分）"
     end
-    let(:created_after) { '2020-10-10'}
-    let(:created_before) { '2020-11-11'}
-    let(:current_user) { User.create email: '1@qq.com' }
-    let(:auth) { "Bearer #{current_user.generate_jwt}" }
+    let(:created_after) { Time.now - 10.days }
+    let(:created_before) { Time.now + 10.days }
     example "获取账目" do
-      11.times do Item.create amount: 100, created_at: '2020-10-30', user_id: current_user.id end
+      tag = Tag.create name: 'x', sign:'x', user_id: current_user.id
+      11.times do 
+        Item.create! amount: 100, happen_at: '2020-10-30', tags_id: [tag.id], 
+          user_id: current_user.id 
+      end
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
