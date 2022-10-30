@@ -3,20 +3,20 @@ require 'rails_helper'
 RSpec.describe "Items", type: :request do
   describe "获取账目" do
     it "分页，未登录" do
-      user1 = User.create email: '1@qq.com'
-      user2 = User.create email: '2@qq.com'
-      11.times { Item.create amount: 100, user_id: user1.id }
-      11.times { Item.create amount: 100, user_id: user2.id }
-      get '/api/v1/items'
+      user1 = create :user, email: "1@qq.com"
+      user2 = User.create email: "2@qq.com"
+      create_list :item, 11, amount: 100, user: user1,
+                             tags_id: [create(:tag, user: user1).id]
+      create_list :item, 11, amount: 100, user: user2,
+                             tags_id: [create(:tag, user: user2).id]
+      get "/api/v1/items"
       expect(response).to have_http_status 401
     end
     it "分页" do
-      user1 = User.create email: '1@qq.com'
-      user2 = User.create email: '2@qq.com'
-      tag1 = Tag.create name: 'tag1', sign: 'x', user_id: user1.id
-      tag2 = Tag.create name: 'tag2', sign: 'x', user_id: user2.id
-      11.times { Item.create amount: 100, user_id: user1.id, tags_id: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00' }
-      11.times { Item.create amount: 100, user_id: user2.id, tags_id: [tag2.id], happen_at: '2018-01-01T00:00:00+08:00' }
+      user1 = User.create! email: "1@qq.com"
+      user2 = User.create! email: "2@qq.com"
+      11.times { Item.create! amount: 100, user_id: user1.id }
+      11.times { Item.create! amount: 100, user_id: user2.id }
 
       get '/api/v1/items', headers: user1.generate_auth_header
       expect(response).to have_http_status 200
