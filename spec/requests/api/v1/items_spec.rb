@@ -113,7 +113,7 @@ RSpec.describe "Items", type: :request do
   end
   describe "统计数据" do
     it '按天分组' do
-      user = User.create! email: '1@qq.com'
+      user = create :user
       tag = Tag.create! name: 'tag1', sign: 'x', user_id: user.id
       Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
       Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
@@ -139,7 +139,7 @@ RSpec.describe "Items", type: :request do
       expect(json['total']).to eq 900
     end
     it '按标签ID分组' do
-      user = User.create! email: '1@qq.com'
+      user = create :user
       tag1 = Tag.create! name: 'tag1', sign: 'x', user_id: user.id
       tag2 = Tag.create! name: 'tag2', sign: 'x', user_id: user.id
       tag3 = Tag.create! name: 'tag3', sign: 'x', user_id: user.id
