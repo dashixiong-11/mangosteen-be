@@ -8,7 +8,7 @@ resource "标签" do
   let(:auth) { "Bearer #{current_user.generate_jwt}" }
   get "/api/v1/tags" do
     parameter :page, '页码'
-    parameter :kind, '类型', in: ['expenses', 'income']
+    parameter :kind, '类型', required: true, in: ['expenses', 'income']
     with_options :scope => :resources do
       response_field :id, 'ID'
       response_field :name, "名称"
@@ -53,6 +53,7 @@ resource "标签" do
     end
     let (:name) { 'x' }
     let (:sign) { 'x' }
+    let (:kind) { 'income' }
     example "创建标签" do
       do_request
       expect(status).to eq 200
