@@ -67,14 +67,13 @@ resource "账目" do
     let(:happened_before) { '2019-01-01' }
     let(:kind) { 'expenses' }
     example "统计信息（按happen_at分组）" do
-      user = current_user
-      tag = create :tag, user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: user.id
-      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: user.id
-      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: user.id
+      tag = create :tag, user: current_user
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: current_user.id
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: current_user.id
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: current_user.id
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: current_user.id
+      Item.create! amount: 100, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: current_user.id
+      Item.create! amount: 200, kind: 'expenses', tag_ids: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: current_user.id
       do_request group_by: 'happen_at'
       expect(status).to eq 200
       json = JSON.parse response_body
