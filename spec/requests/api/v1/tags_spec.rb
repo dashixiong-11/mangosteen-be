@@ -89,7 +89,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
   describe '更新标签' do
     it '未登录修改标签' do
       user = create :user
-      tag = create :tag, user_id: user.id
+      tag = create :tag, user: user
       patch "/api/v1/tags/#{tag.id}", params: {name: 'y', sign: 'y'}
       expect(response).to have_http_status(401)
     end

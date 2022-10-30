@@ -89,9 +89,9 @@ resource "账目" do
 
     example "统计信息（按tag_id分组）" do
       user = current_user
-      tag1 = create :tag, user_id: user.id
-      tag2 = create :tag, user_id: user.id
-      tag3 = create :tag, user_id: user.id
+      tag1 = create :tag, user: userid
+      tag2 = create :tag, user: userid
+      tag3 = create :tag, user: userid
       Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
       Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
       Item.create! amount: 300, kind: 'expenses', tag_ids: [tag3.id, tag1.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id

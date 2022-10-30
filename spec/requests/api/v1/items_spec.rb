@@ -29,7 +29,7 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选" do
       user1 = create :user
-      tag1 = create :tag, user_id: user1.id
+      tag1 = create :tag, user: user1
       item1 = Item.create amount: 100, created_at: '2018-01-02', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
       item2 = Item.create amount: 100, created_at: '2018-01-02', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
       item3 = Item.create amount: 100, created_at: '2019-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
@@ -44,7 +44,7 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件）" do
       user1 = create :user
-      tag1 = create :tag, user_id: user1.id
+      tag1 = create :tag, user: user1
       item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00' 
 
       get '/api/v1/items?created_after=2018-01-01&created_before=2018-01-02',
@@ -56,7 +56,7 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件2）" do
       user1 = create :user
-      tag1 = create :tag, user_id: user1.id
+      tag1 = create :tag, user: user1
       item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
       item2 = Item.create amount: 100, created_at: '2017-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
       get '/api/v1/items?created_after=2018-01-01', 
@@ -68,7 +68,7 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件3）" do
       user1 = create :user
-      tag1 = create :tag, user_id: user1.id
+      tag1 = create :tag, user: user1
       item1 = Item.create amount: 100, created_at: '2018-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
       item2 = Item.create amount: 100, created_at: '2019-01-01', user_id: user1.id, tag_ids: [tag1.id], happen_at: '2018-01-01T00:00:00+08:00'
 
@@ -140,9 +140,9 @@ RSpec.describe "Items", type: :request do
     end
     it '按标签ID分组' do
       user = create :user
-      tag1 = create :tag, user_id: user.id
-      tag2 = create :tag, user_id: user.id
-      tag3 = create :tag, user_id: user.id
+      tag1 = create :tag, user: user
+      tag2 = create :tag, user: user
+      tag3 = create :tag, user: user
       Item.create! amount: 100, kind: 'expenses', tag_ids: [tag1.id, tag2.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
       Item.create! amount: 200, kind: 'expenses', tag_ids: [tag2.id, tag3.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
       Item.create! amount: 300, kind: 'expenses', tag_ids: [tag3.id, tag1.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
