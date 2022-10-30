@@ -11,6 +11,9 @@ class Item < ApplicationRecord
 
 
   belongs_to :user
+  def tags
+    Tag.where(id: tag_ids)
+  end
 
   def check_tag_ids_belong_to_user
     all_tag_ids = Tag.where(user_id: self.user_id).map(&:id)
