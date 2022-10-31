@@ -6,4 +6,8 @@ class Tag < ApplicationRecord
   validates :kind, presence: true
   enum kind: {expenses: 1, income: 2 }
   belongs_to :user
+
+  def self.default_scope
+    where(deleted_at: nil)
+  end
 end
