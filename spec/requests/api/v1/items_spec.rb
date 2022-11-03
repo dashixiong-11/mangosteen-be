@@ -101,7 +101,7 @@ RSpec.describe "Items", type: :request do
       expect(json["resource"]["id"]).to be_an(Numeric)
       expect(json["resource"]["amount"]).to eq 99
       expect(json["resource"]["user_id"]).to eq user.id
-      expect(json["resource"]["happen_at"]).to eq "2017-12-31T16:00:00.000Z"
+      expect(json["resource"]["happen_at"]).to eq "2018-01-01T00:00:00.000+08:00"
       expect(json["resource"]["kind"]).to eq "income"
     end
     it "创建时 amount、tag_ids、happen_at 必填" do
