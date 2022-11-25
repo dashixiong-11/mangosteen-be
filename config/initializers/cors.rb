@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '121.199.73.185:8080'
+    origins '121.199.73.185:8080', 'mangosteen.changewhen.live'
     resource '*',
         methods: [:get, :post, :delete, :patch, :options, :head],
         headers: :any,
